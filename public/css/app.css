@@ -1426,6 +1426,9 @@ select {
 .bg-no-repeat {
   background-repeat: no-repeat;
 }
+.fill-current {
+  fill: currentColor;
+}
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
@@ -1809,6 +1812,10 @@ select {
 .hover\:text-gray-900:hover {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+.hover\:text-red-900:hover {
+  --tw-text-opacity: 1;
+  color: rgb(127 29 29 / var(--tw-text-opacity));
 }
 .focus\:z-10:focus {
   z-index: 10;
