@@ -35,3 +35,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/mangas',[MangaController:
 Route::middleware(['auth:sanctum', 'verified'])->get('/books',[BookController::class, 'index'])->name('books');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/books',[BookController::class, 'store'])->name('books.store');
+
+Route::middleware(['auth:sanctum', 'verified'])->delete('/books/{id}',[BookController::class, 'destroy'])->name('books.destroy');
