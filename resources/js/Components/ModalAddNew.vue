@@ -14,7 +14,7 @@
                     <jet-secondary-button @click="closeModal">
                         Cancel
                     </jet-secondary-button>
-                    <jet-button class="ml-3" :class="{ 'opacity-25': processing }" :disabled="processing" @click="submit">
+                    <jet-button class="ml-3" :class="{ 'opacity-25': processing }" :disabled="processing" @click="store">
                         Add 
                     </jet-button>
                 </template>
@@ -47,8 +47,8 @@
             closeModal(){
                 this.$emit('closeModal');
             },
-            submit(){
-                this.$emit('submit');
+            store(){
+                this.$emit('store');
             },
         }
     }
