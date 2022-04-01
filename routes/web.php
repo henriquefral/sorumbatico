@@ -37,3 +37,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/books',[BookController::c
 Route::middleware(['auth:sanctum', 'verified'])->post('/books',[BookController::class, 'store'])->name('books.store');
 
 Route::middleware(['auth:sanctum', 'verified'])->delete('/books/{id}',[BookController::class, 'destroy'])->name('books.destroy');
+
+Route::middleware(['auth:sanctum', 'verified'])->patch('/books/{id}',[BookController::class, 'update'])->name('books.update');
