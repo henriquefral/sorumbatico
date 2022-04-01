@@ -45,15 +45,17 @@ class BookController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:150'],
             'author' => ['required', 'string', 'max:150'],
-            'pages' => ['required','int'],
+            'pages' => ['required','int', 'min:0'],
             'current_page' => ['int','nullable', 'min:0'],
             ],[
             'name.required'=>'Book name is required',
             'name.max'=>'Book name is too big',
             'author.required'=>'Book author is required',
             'author.max'=>'Book author is too big',
+            'pages.min' => 'Please, a valid number for the page',
             'pages.required'=>'Pages are required',
             'current_page.int' => 'The pages must be a numerical value',
+            'current_page.min' => 'Please, a valid number for the page',
             'pages.int' => 'The pages must be a numerical value',
         ]);
 
@@ -99,9 +101,36 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, $id)
     {
-        //
+        Validator::make($request->all(), [
+            'name' => ['nullable', 'string', 'max:150'],
+            'author' => ['nullable', 'string', 'max:150'],
+            'pages' => ['nullable','int', 'min:0'],
+            'current_page' => ['int','nullable', 'min:0'],
+            ],[
+                'name.max'=>'Book name is too big',
+                'author.max'=>'Book author is too big',
+                'pages.min' => 'Please, a valid number for the page',
+                'current_page.int' => 'The pages must be a numerical value',
+                'current_page.min' => 'Please, a valid number for the page',
+                'pages.int' => 'The pages must be a numerical value',
+            ]
+        )->validate();
+
+        
+        $update = [];
+        foreach($request->all() as $field => $value)
+        {
+            if (isset($value)) {
+                $update = array_merge($update,[$field => $value]);
+            }
+        };
+
+        Book::find($id)->update($update); 
+
+        return back();
+
     }
 
     /**
