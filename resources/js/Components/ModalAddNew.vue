@@ -3,19 +3,22 @@
         <template #content> 
             <jet-dialog-modal :show="isModalActive" @close="closeModal">
                 <template #title>
-                    Add new book
+                    <div class="flex justify-between">
+                        {{title}}
+                        <slot name="title"> </slot>
+                    </div>
                 </template>
 
                 <template #content>
-                    <slot/>
+                    <slot name="content"/>
                 </template>
 
                 <template #footer>
                     <jet-secondary-button @click="closeModal">
                         Cancel
                     </jet-secondary-button>
-                    <jet-button class="ml-3" :class="{ 'opacity-25': processing }" :disabled="processing" @click="store">
-                        Add 
+                    <jet-button class="ml-3" :class="{ 'opacity-25': processing }" :disabled="processing" @click="method">
+                        Save 
                     </jet-button>
                 </template>
             </jet-dialog-modal>
@@ -31,10 +34,12 @@
     import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 
     export default {    
+        emits: ["closeModal", "store", "update"],
         props:{
             isModalActive:Boolean,
             processing: Boolean,
             title: String,
+            method: Function
         },
         components: {
             JetDialogModal,
@@ -50,6 +55,9 @@
             store(){
                 this.$emit('store');
             },
+            update(){
+                this.$emit('update');
+            }
         }
     }
 </script>
