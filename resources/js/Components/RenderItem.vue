@@ -1,5 +1,6 @@
 <template>
-    <div class="p-6 bg-white border-b border-gray-200 mb-2.5 m-2/6 max-w-[25%]" v-for="(item) in itens" :key="item.id">                
+    <div class="p-6 bg-white border-b border-gray-200 mb-2.5 m-2/6 max-w-[25%] cursor-pointer" 
+    v-for="(item) in itens" :key="item.id" @click="updateModal(true,item)">                
         <div class="mt-8 text-2xl">
             {{ item.name }}
         </div>
@@ -11,8 +12,6 @@
                 <div v-if="itemName=='Mangas'">
                     {{item.chapters}}/{{item.current_chapter}}
                 </div>
-                <icon name="delete" class="w-5 h-5 fill-current hover:text-red-900 cursor-pointer" 
-                @click="destroy(item)"/>
             </div>
         </div>
     </div>
@@ -22,6 +21,7 @@
     import Icon from './Icons.vue';
 
     export default {
+        emits: ["updateModal"],
         props:{
             itens: Object,
             itemName: String,
@@ -30,9 +30,10 @@
             Icon
         },
         methods:{
-            destroy(item){
-                this.$inertia.delete(`/${this.itemName}/${item.id}`);
-            }
+
+            updateModal(value, book){
+                this.$emit('updateModal',{"value":value, "book":book});
+            },
         }
     }
 </script>
